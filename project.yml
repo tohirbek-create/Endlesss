@@ -1,0 +1,18 @@
+name: SimpleIOS
+
+options:
+  bundleIdPrefix: com.simpleios
+  deploymentTarget:
+    iOS: "16.0"
+
+targets:
+  SimpleIOS:
+    type: application
+    platform: iOS
+    sources:
+      - ContentView.swift
+      - SimpleIOSApp.swift
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.simpleios.app
+      SWIFT_VERSION: "5.0"
+      TARGETED_DEVICE_FAMILY: "1,2"
