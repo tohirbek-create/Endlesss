@@ -1,0 +1,35 @@
+name: Build iOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Kodlarni olish
+        uses: actions/checkout@v4
+
+      - name: XcodeGen o‘rnatish
+        run: brew install xcodegen
+
+      - name: Xcode loyihasini yaratish
+        run: xcodegen generate
+
+      - name: iOS build
+        run: |
+          xcodebuild \
+            -project SimpleIOS.xcodeproj \
+            -scheme SimpleIOS \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: App faylini saqlash
+        uses: actions/upload-artifact@v4
+        with:
+          name: SimpleIOS-App
+          path: build/Build/Products/Release-iphoneos/SimpleIOS.app
